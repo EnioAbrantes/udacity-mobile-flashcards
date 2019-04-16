@@ -1,18 +1,79 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { fetchDeckResults } from '../utils/api'
+import { getDecksResults } from '../utils/api'
 
 export default class Decks extends React.Component {
 
+    state = {
+        decks : []
+    }
+
   componentDidMount () {
     console.log('before')
-    console.log(fetchDeckResults())
+    getDecksResults().then((data) => this.setState({ decks : Object.values(data)}))
+    getDecksResults().then((data) => console.log(Object.values(data)))
+
+    console.log('decks' + this.state.decks)
+    //console.log()
+
+    /* {Object.keys(metaInfo).map((key) => {
+        const { getIcon, type, ...rest } = metaInfo[key]
+        const value = this.state[key]
+
+        return (
+          <View key={key} style={styles.row}>
+            {getIcon()}
+            {type === 'slider'
+              ? <UdaciSlider
+                  value={value}
+                  onChange={(value) => this.slide(key, value)}
+                  {...rest}
+                />
+              : <UdaciSteppers
+                  value={value}
+                  onIncrement={() => this.increment(key)}
+                  onDecrement={() => this.decrement(key)}
+                  {...rest}
+                />}
+          </View>
+        )
+      })} */
+
   }
   render() {
     return (
-      <View >
-        <Text>bla bla bla bla bla </Text>
+      <View style={styles.container}>
+        {this.state.decks.map((deck) => {
+            return (
+                <View key={deck.title} >
+                    <Text style={styles.deck}>{deck.title}</Text>
+                    <Text style={styles.cards}>{deck.questions.length} cards</Text>
+                </View>
+            )
+      })}
       </View>
     );
   }
 }
+
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+    deck : { 
+        fontSize : 50,
+    },
+    cards : {
+        fontSize : 20,
+    }
+})
+
+
+
+
+
+
+

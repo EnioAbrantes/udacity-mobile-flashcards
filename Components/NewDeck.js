@@ -1,34 +1,27 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, TextInput } from 'react-native';
-import { submitEntry, fetchDeckResults } from '../utils/api'
-import { uuidv4 } from '../utils/helpers'
-
+import { submitDeckEntry, getDecksResults } from '../utils/api'
 
 export default class NewDeck extends React.Component {
 
     state = {
-        text : '',
+        deckTitle : '',
     }
 
-    handleInput = (text) => {
-        this.setState({text : text})
-
-        const key = uuidv4()
-        const entry = this.state
-
-        submitEntry({key, entry})
-        
+    handleInput = (deckTitle) => {
+        console.log('input'+deckTitle)
+        this.setState({deckTitle : deckTitle})
     }
 
 
     handleSubmit = () => {
-        const key = uuidv4()
-        const entry = this.state
+        const key = this.state.deckTitle
 
-        submitEntry({key, entry})
-        console.log(entry)
+
+        submitDeckEntry(key)
         console.log(key)
-        console.log(fetchDeckResults())
+        getDecksResults().then((data) => console.log(data))
+        //console.log(getDecksResults())
     }
 
 
@@ -40,7 +33,7 @@ export default class NewDeck extends React.Component {
             <TextInput
                 style={styles.deckName}
                 placeholder="Deck Title"
-                onChangeText={(text) => this.handleInput({text})}
+                onChangeText={(text) => this.handleInput(text)}
             />
             <TouchableOpacity style={styles.submitBTN} onPress={() => this.handleSubmit()}>
                 <Text >Submit</Text>
