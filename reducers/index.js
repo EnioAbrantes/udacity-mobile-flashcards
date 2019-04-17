@@ -1,4 +1,4 @@
-import { ADD_DECK } from '../actions/index'
+import { ADD_DECK, RECEIVE_DECKS } from '../actions/index'
 
 
 function entries(state = {}, action){
@@ -7,6 +7,11 @@ function entries(state = {}, action){
             return {
                 ...state,
                 ...action.newDeck
+            }
+        case RECEIVE_DECKS:
+            return {
+                ...state,
+                ...action.decks
             }
         default:
             return state

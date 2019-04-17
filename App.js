@@ -12,6 +12,10 @@ import NewDeck from './Components/NewDeck'
 import DeckDetails from './Components/DeckDetails'
 import { purple, white } from './utils/colors'
 import { Constants } from 'expo'
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
+import reducer from './reducers'
+import middleware from './middleware'
 
 
 const RouteConfigs = {
@@ -91,9 +95,11 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <TabsContainer />
-      </View>
+      <Provider store={createStore(reducer, middleware )}>
+        <View style={styles.container}>
+          <TabsContainer />
+        </View>
+      </Provider>
     );
   }
 }

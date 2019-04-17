@@ -1,9 +1,10 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, FlatList } from 'react-native';
-import { getDecksResults } from '../utils/api'
+import { handleInitialDecks } from '../actions/shared'
 import DeckDetails from './DeckDetails'
+import { connect } from 'react-redux'
 
-export default class Decks extends React.Component {
+class Decks extends React.Component {
 
     state = {
         decks : []
@@ -11,10 +12,15 @@ export default class Decks extends React.Component {
 
   componentDidMount () {
     console.log('before')
-    getDecksResults().then((data) => this.setState({ decks : Object.values(data)}))
+    /* getDecksResults().then((data) => this.setState({ decks : Object.values(data)}))
     getDecksResults().then((data) => console.log(Object.values(data)))
+    
+    if(this.state.decks){
+        
+    }
+    console.log('decks' + this.state.decks) */
 
-    console.log('decks' + this.state.decks)
+    this.props.dispatch(handleInitialDecks())
     //console.log()
 
     /* {Object.keys(metaInfo).map((key) => {
@@ -49,12 +55,15 @@ export default class Decks extends React.Component {
   render() {
     return (
       <View  style={styles.container}>
-        {this.state.decks.map((deck) => {
+        {console.log('props'+Object.values(this.props.decks))}
+        {Object.values(this.props.decks).map((deck) => {
             return (
+                
                 <TouchableOpacity key={`${deck.title}btn`} onPress={() => this.props.navigation.navigate(
                     'DeckDetails',
                     { deck: deck }
                 )}>
+                    {console.log('inside' + deck)}
                     <View key={`${deck.title}hrup`} style={styles.hr}/>
                     <View key={deck.title} >
                         <Text style={styles.deck}>{deck.title}</Text>
@@ -63,7 +72,7 @@ export default class Decks extends React.Component {
                     <View key={`${deck.title}hrdown`} style={styles.hr} />
                 </TouchableOpacity>
             )
-      })}
+      })  }
       </View>
     );
   }
@@ -91,6 +100,13 @@ const styles = StyleSheet.create({
     }
 })
 
+function mapStateToProps ( state ){
+    console.log('stttate' + Object.keys(state))
+    JSON.stringify( state )
+    return { decks : state }
+}
+
+export default connect(mapStateToProps)(Decks)
 
 
 
