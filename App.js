@@ -9,6 +9,7 @@ import {
 import { FontAwesome, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 import Decks from './Components/Decks'
 import NewDeck from './Components/NewDeck'
+import DeckDetails from './Components/DeckDetails'
 import { purple, white } from './utils/colors'
 import { Constants } from 'expo'
 
@@ -71,6 +72,16 @@ const MainNavigator = createStackNavigator({
       },
     }),
   },
+  DeckDetails: {
+    screen: DeckDetails,
+    navigationOptions: ({ navigation }) => ({
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: purple,
+      },
+    }),
+  },
+
 });
     
 

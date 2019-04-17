@@ -1,6 +1,7 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, FlatList } from 'react-native';
 import { getDecksResults } from '../utils/api'
+import DeckDetails from './DeckDetails'
 
 export default class Decks extends React.Component {
 
@@ -40,15 +41,27 @@ export default class Decks extends React.Component {
       })} */
 
   }
+
+  handleDeck = () =>{
+
+  }
+
   render() {
     return (
-      <View style={styles.container}>
+      <View  style={styles.container}>
         {this.state.decks.map((deck) => {
             return (
-                <View key={deck.title} >
-                    <Text style={styles.deck}>{deck.title}</Text>
-                    <Text style={styles.cards}>{deck.questions.length} cards</Text>
-                </View>
+                <TouchableOpacity key={`${deck.title}btn`} onPress={() => this.props.navigation.navigate(
+                    'DeckDetails',
+                    { deck: deck }
+                )}>
+                    <View key={`${deck.title}hrup`} style={styles.hr}/>
+                    <View key={deck.title} >
+                        <Text style={styles.deck}>{deck.title}</Text>
+                        <Text style={styles.cards}>{deck.questions.length} cards</Text>
+                    </View>
+                    <View key={`${deck.title}hrdown`} style={styles.hr} />
+                </TouchableOpacity>
             )
       })}
       </View>
@@ -60,17 +73,23 @@ export default class Decks extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'space-between',
-        alignItems: 'center',
+        justifyContent: 'space-around',
     },
     deck : { 
         fontSize : 50,
+        textAlign : 'center',
     },
     cards : {
         fontSize : 20,
+        textAlign : 'center',
+    },
+    hr: {
+        borderBottomColor: 'black',
+        borderBottomWidth: 1,
+        alignItems: 'stretch',
+        marginTop : 10,
     }
 })
-
 
 
 

@@ -1,8 +1,10 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, TextInput } from 'react-native';
 import { submitDeckEntry, getDecksResults } from '../utils/api'
+import { connect } from 'react-redux'
+import { addDeck } from '../actions/index'
 
-export default class NewDeck extends React.Component {
+class NewDeck extends React.Component {
 
     state = {
         deckTitle : '',
@@ -21,6 +23,10 @@ export default class NewDeck extends React.Component {
         submitDeckEntry(key)
         console.log(key)
         getDecksResults().then((data) => console.log(data))
+        this.props.dispatch(addDeck({[key] : {
+            title : key,
+            questions : []
+        } }))
         //console.log(getDecksResults())
     }
 
@@ -74,3 +80,9 @@ const styles = StyleSheet.create({
         marginTop : 40,
     },
 })
+
+function mapStateToProps (state){
+    return {state}
+}
+
+export default connect(mapStateToProps)(NewDeck)
