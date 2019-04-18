@@ -20,3 +20,12 @@ export function submitDeckEntry ( key ) {
     }))
   }
   
+export function submitCardEntry ( key, newCard ) {
+    return AsyncStorage.getItem(DECKS_LIST_KEY)
+  .then((data) => {
+      let deckInfo = JSON.parse(data)[key]
+      deckInfo.questions.push(newCard)
+      AsyncStorage.setItem(DECKS_LIST_KEY, JSON.stringify({[key]: deckInfo}))
+      .then(data => JSON.parse(data))
+    })
+  }

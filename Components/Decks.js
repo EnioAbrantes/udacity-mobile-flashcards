@@ -55,7 +55,6 @@ class Decks extends React.Component {
   render() {
     return (
       <View  style={styles.container}>
-        {console.log('props'+Object.values(this.props.decks))}
         {Object.values(this.props.decks).map((deck) => {
             return (
                 
@@ -63,7 +62,6 @@ class Decks extends React.Component {
                     'DeckDetails',
                     { deck: deck }
                 )}>
-                    {console.log('inside' + deck)}
                     <View key={`${deck.title}hrup`} style={styles.hr}/>
                     <View key={deck.title} >
                         <Text style={styles.deck}>{deck.title}</Text>

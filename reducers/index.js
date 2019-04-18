@@ -1,4 +1,4 @@
-import { ADD_DECK, RECEIVE_DECKS } from '../actions/index'
+import { ADD_DECK, RECEIVE_DECKS, ADD_CARD } from '../actions/index'
 
 
 function entries(state = {}, action){
@@ -13,6 +13,10 @@ function entries(state = {}, action){
                 ...state,
                 ...action.decks
             }
+        case ADD_CARD:
+            return Object.values(state).map((deck) => (
+                    deck.title === action.deck.title? action.deck : deck
+            ))
         default:
             return state
     }
