@@ -21,7 +21,11 @@ class DeckDetails extends Component {
           <Text >Add Card</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={styles.startQuizBtn}>
+          style={styles.startQuizBtn}
+          onPress={() => this.props.navigation.navigate(
+            'Quiz',
+            {questions : this.props.navigation.state.params.deck.questions}
+        )}>
           <Text >Start Quiz</Text>
         </TouchableOpacity>
       </View>
