@@ -4,6 +4,7 @@ import { formatDecksInfo } from './helpers'
 export const DECKS_LIST_KEY = 'FlashCards:decks'
 
 export function getDecksResults () {
+  //AsyncStorage.clear()
   return AsyncStorage.getItem(DECKS_LIST_KEY)
   .then((data) => JSON.parse(data))
 }
@@ -25,7 +26,10 @@ export function submitCardEntry ( key, newCard ) {
   .then((data) => {
       let deckInfo = JSON.parse(data)[key]
       deckInfo.questions.push(newCard)
-      AsyncStorage.setItem(DECKS_LIST_KEY, JSON.stringify({[key]: deckInfo}))
+      AsyncStorage.mergeItem(DECKS_LIST_KEY, JSON.stringify({
+        [key]: deckInfo}
+      ))
       .then(data => JSON.parse(data))
+      
     })
   }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, FlatList } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
 import { handleInitialDecks } from '../actions/shared'
 import DeckDetails from './DeckDetails'
 import { connect } from 'react-redux'
@@ -54,7 +54,7 @@ class Decks extends React.Component {
 
   render() {
     return (
-      <View  style={styles.container}>
+      <ScrollView  style={styles.container}>
         {Object.values(this.props.decks).map((deck) => {
             return (
                 
@@ -71,7 +71,7 @@ class Decks extends React.Component {
                 </TouchableOpacity>
             )
       })  }
-      </View>
+      </ScrollView>
     );
   }
 }
@@ -80,7 +80,6 @@ class Decks extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'space-around',
     },
     deck : { 
         fontSize : 50,
@@ -99,7 +98,6 @@ const styles = StyleSheet.create({
 })
 
 function mapStateToProps ( state ){
-    console.log('stttate' + Object.keys(state))
     JSON.stringify( state )
     return { decks : state }
 }

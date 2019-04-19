@@ -29,10 +29,10 @@ class NewCard extends Component {
       answer : answer
     })
 
-    submitCardEntry(key, {
+    console.log('newcard' + submitCardEntry(key, {
       question : question,
       answer : answer
-    })
+    }))
 
     this.props.dispatch(addCard({[key] : {
       title : key,

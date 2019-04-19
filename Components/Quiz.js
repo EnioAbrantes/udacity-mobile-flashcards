@@ -9,10 +9,6 @@ class Quiz extends Component {
         grade : 0,
     }
 
-    componentDidMount(){
-        //this.setState({currentQuestion : this.props.navigation.state.params.questions[0]})
-    }
-
     handleQuestion = (answer) => {
         console.log(this.props.navigation.state.params.questions[this.state.currentQuestion].answer)
         if((answer && this.props.navigation.state.params.questions[this.state.currentQuestion].answer === 'yes') 
