@@ -5,16 +5,22 @@ import { purple } from '../utils/colors'
 class Quiz extends Component {
     state = {
         currentQuestion: 0,
-        showAnswer: false
+        showAnswer: false,
+        grade : 0,
     }
 
     componentDidMount(){
         //this.setState({currentQuestion : this.props.navigation.state.params.questions[0]})
     }
 
-    handleQuestion = () => (
+    handleQuestion = (answer) => {
+        console.log(this.props.navigation.state.params.questions[this.state.currentQuestion].answer)
+        if((answer && this.props.navigation.state.params.questions[this.state.currentQuestion].answer === 'yes') 
+            || (!answer && this.props.navigation.state.params.questions[this.state.currentQuestion].answer === 'no')){
+                this.setState({grade : this.state.grade+1})
+        }
         this.setState({currentQuestion : this.state.currentQuestion+1})
-    ) 
+    }
 
     handleShowAnswer = () => (
         this.setState({showAnswer : !this.state.showAnswer})
@@ -29,10 +35,11 @@ class Quiz extends Component {
                 {this.props.navigation.state.params.questions.length <= this.state.currentQuestion
                 
                 ? <Text style={{color: purple, fontSize: 25}}>
-                    done
+                    done, you've finished with the percentage of {(this.state.grade/this.props.navigation.state.params.questions.length)*100}%
                 </Text>
                 
                 :<View>
+                    <Text >{`${this.state.currentQuestion+1}/${this.props.navigation.state.params.questions.length}`}</Text>
                     <Text style={{color: purple, fontSize: 25}}>
                         {this.state.showAnswer
                         ?this.props.navigation.state.params.questions[this.state.currentQuestion].answer
@@ -43,10 +50,10 @@ class Quiz extends Component {
                         ? 'Question' 
                         : 'Answer'}</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.submitBTN} onPress={() => this.handleQuestion()}>
+                    <TouchableOpacity style={styles.submitBTN} onPress={() => this.handleQuestion(true)}>
                         <Text >Correct</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.submitBTN} onPress={() => this.handleQuestion()}>
+                    <TouchableOpacity style={styles.submitBTN} onPress={() => this.handleQuestion(false)}>
                         <Text >Incorrect</Text>
                     </TouchableOpacity>
                 </View>
