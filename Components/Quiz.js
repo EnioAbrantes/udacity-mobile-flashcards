@@ -4,7 +4,8 @@ import { purple } from '../utils/colors'
 
 class Quiz extends Component {
     state = {
-        currentQuestion: 0
+        currentQuestion: 0,
+        showAnswer: false
     }
 
     componentDidMount(){
@@ -14,6 +15,12 @@ class Quiz extends Component {
     handleQuestion = () => (
         this.setState({currentQuestion : this.state.currentQuestion+1})
     ) 
+
+    handleShowAnswer = () => (
+        this.setState({showAnswer : !this.state.showAnswer})
+    ) 
+
+
 
     render(){
         let { questions } = this.props.navigation.state.params
@@ -27,8 +34,15 @@ class Quiz extends Component {
                 
                 :<View>
                     <Text style={{color: purple, fontSize: 25}}>
-                        {this.props.navigation.state.params.questions[this.state.currentQuestion].question}
+                        {this.state.showAnswer
+                        ?this.props.navigation.state.params.questions[this.state.currentQuestion].answer
+                        :this.props.navigation.state.params.questions[this.state.currentQuestion].question}
                     </Text>
+                    <TouchableOpacity onPress={() => this.handleShowAnswer()}>
+                        <Text >{this.state.showAnswer
+                        ? 'Question' 
+                        : 'Answer'}</Text>
+                    </TouchableOpacity>
                     <TouchableOpacity style={styles.submitBTN} onPress={() => this.handleQuestion()}>
                         <Text >Correct</Text>
                     </TouchableOpacity>
