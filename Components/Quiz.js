@@ -35,7 +35,7 @@ class Quiz extends Component {
                 {this.props.navigation.state.params.questions.length <= this.state.currentQuestion
                 
                 ? <Text style={{color: purple, fontSize: 25}}>
-                    done, you've finished with the percentage of {(this.state.grade/this.props.navigation.state.params.questions.length)*100}%
+                    done, you've finished with the percentage of {((this.state.grade/this.props.navigation.state.params.questions.length)*100).toFixed(2)}%
                 </Text>
                 
                 :<View>

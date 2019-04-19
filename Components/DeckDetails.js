@@ -1,9 +1,12 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { purple, white, gray, black } from '../utils/colors'
+import { connect } from 'react-redux'
 
 class DeckDetails extends Component {
+  
   render(){
+    
     return (
       <View>
         <Text style={{color: purple, fontSize: 25}}>
@@ -56,5 +59,11 @@ const styles = StyleSheet.create({
   },
 })
 
-export default DeckDetails;
+function mapStateToProps (state){
+  return {
+    state
+  }
+}
+
+export default connect(mapStateToProps)(DeckDetails)
 
