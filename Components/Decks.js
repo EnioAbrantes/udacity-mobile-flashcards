@@ -55,13 +55,13 @@ class Decks extends React.Component {
   render() {
     return (
       <ScrollView  style={styles.container}>
+        <View style={{marginTop : 40}}/>
         {Object.values(this.props.decks).map((deck) => {
             return (
-                
                 <TouchableOpacity key={`${deck.title}btn`} onPress={() => this.props.navigation.navigate(
                     'DeckDetails',
                     { deck: deck }
-                )}>
+                )}> 
                     <View key={`${deck.title}hrup`} style={styles.hr}/>
                     <View key={deck.title} >
                         <Text style={styles.deck}>{deck.title}</Text>

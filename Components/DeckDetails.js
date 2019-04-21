@@ -8,12 +8,12 @@ class DeckDetails extends Component {
   render(){
     
     return (
-      <View>
-        <Text style={{color: purple, fontSize: 25}}>
+      <View style={styles.container}>
+        <Text style={styles.deckTitleText}>
         {this.props.navigation.state.params.deck.title}
         </Text>
-        <Text style={{color: purple, fontSize: 25}}>
-        {this.props.navigation.state.params.deck.questions.length}
+        <Text style={styles.deckCardsText}>
+        {`${this.props.navigation.state.params.deck.questions.length} ${this.props.navigation.state.params.deck.questions.length === 1? 'card' : 'cards'}`}
         </Text>
         <TouchableOpacity
           style={styles.addCardBtn}
@@ -21,7 +21,7 @@ class DeckDetails extends Component {
             'NewCard',
             {deck : this.props.navigation.state.params.deck}
         )}>
-          <Text >Add Card</Text>
+          <Text style={styles.addCardText}>Add Card</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.startQuizBtn}
@@ -29,7 +29,7 @@ class DeckDetails extends Component {
             'Quiz',
             {questions : this.props.navigation.state.params.deck.questions}
         )}>
-          <Text >Start Quiz</Text>
+          <Text style={styles.startQuizText}>Start Quiz</Text>
         </TouchableOpacity>
       </View>
     )
@@ -38,24 +38,46 @@ class DeckDetails extends Component {
 
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   addCardBtn: {
     backgroundColor: white,
     padding: 10,
-    borderRadius: 50,
+    borderRadius: 7,
     borderWidth: 1,
-    borderStyle: 'dotted',
     borderColor: black,
-    height: 45,
-    marginLeft: 40,
-    marginRight: 40,
+    height: 50,
+    width : 250,
   },
   startQuizBtn: {
-    backgroundColor: gray,
+    backgroundColor: black,
     padding: 10,
-    borderRadius: 50,
-    height: 45,
-    marginLeft: 40,
-    marginRight: 40,
+    borderRadius: 7,
+    height: 50,
+    marginTop: 10,
+    width : 250,
+  },
+  startQuizText: {
+    color : white,
+    textAlign: 'center',
+    fontSize: 22,
+  },
+  addCardText: {
+    textAlign: 'center',
+    fontSize: 22,
+  },
+  deckTitleText: {
+    color: black,
+    fontSize: 35,
+    marginBottom : 5,
+  },
+  deckCardsText: {
+    color: gray, 
+    fontSize: 20,
+    marginBottom : 120,
   },
 })
 
