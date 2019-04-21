@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity, TextInput } from 'react-nativ
 import { submitDeckEntry, getDecksResults } from '../utils/api'
 import { connect } from 'react-redux'
 import { addDeck } from '../actions/index'
+import { clearLocalNotification, setLocalNotification } from '../utils/helpers'
 
 class NewDeck extends React.Component {
 
@@ -27,6 +28,10 @@ class NewDeck extends React.Component {
             title : key,
             questions : []
         } }))
+
+        clearLocalNotification()
+        .then(setLocalNotification)
+        
         //console.log(getDecksResults())
     }
 
