@@ -6,6 +6,7 @@ export function getDecksResults () {
   //AsyncStorage.clear()
   return AsyncStorage.getItem(DECKS_LIST_KEY)
   .then((data) => JSON.parse(data))
+  .catch((error) => console.log(error))
 }
 
 //following the format on the documentation

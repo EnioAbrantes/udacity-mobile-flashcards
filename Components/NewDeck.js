@@ -32,8 +32,6 @@ class NewDeck extends React.Component {
 
         clearLocalNotification().then(setLocalNotification)
         
-        
-
         this.props.navigation.navigate(
             'DeckDetails',
             { deck: {
@@ -57,7 +55,7 @@ class NewDeck extends React.Component {
                 value= {this.state.deckTitle}
             />
             <TouchableOpacity style={styles.addDeckBtn} onPress={() => this.handleSubmit()}>
-                <Text style={styles.addDeckText} >Add Deck</Text>
+                <Text style={styles.addDeckText}>Add Deck</Text>
             </TouchableOpacity>
         </KeyboardAvoidingView>
     );

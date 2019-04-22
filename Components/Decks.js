@@ -56,23 +56,26 @@ class Decks extends React.Component {
     return (
       <ScrollView  style={styles.container}>
         <View style={{marginTop : 40}}/>
-        {Object.values(this.props.decks).map((deck) => {
-            return (
-                <TouchableOpacity key={`${deck.title}btn`} onPress={() => this.props.navigation.navigate(
-                    'DeckDetails',
-                    { deck: deck }
-                )}> 
-                    <View key={`${deck.title}hrup`} style={styles.hr}/>
-                    <View key={deck.title} >
-                        <Text style={styles.deck}>{deck.title}</Text>
-                        <Text style={styles.cards}>{deck.questions.length} cards</Text>
-                    </View>
-                    <View key={`${deck.title}hrdown`} style={styles.hr} />
-                </TouchableOpacity>
-            )
-      })  }
+        { Object.values(this.props.decks).length === 0
+        ? <Text style={styles.noDeckMessage}> There is no deck yet, create your first deck and let's start the game.</Text>
+        : Object.values(this.props.decks).map((deck) => {
+                return (
+                    <TouchableOpacity key={`${deck.title}btn`} onPress={() => this.props.navigation.navigate(
+                        'DeckDetails',
+                        { deck: deck }
+                    )}> 
+                        <View key={`${deck.title}hrup`} style={styles.hr}/>
+                        <View key={deck.title} >
+                            <Text style={styles.deck}>{deck.title}</Text>
+                            <Text style={styles.cards}>{deck.questions.length} cards</Text>
+                        </View>
+                        <View key={`${deck.title}hrdown`} style={styles.hr} />
+                    </TouchableOpacity>
+                )
+        })  
+        }
       </ScrollView>
-    );
+    )
   }
 }
 
@@ -94,6 +97,11 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         alignItems: 'stretch',
         marginTop : 10,
+    },
+    noDeckMessage : {
+        marginTop : 50,
+        fontSize : 50,
+        textAlign : 'center',
     }
 })
 

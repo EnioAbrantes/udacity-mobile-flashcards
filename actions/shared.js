@@ -8,5 +8,6 @@ export function handleInitialDecks () {
       .then(( decks ) => {
         dispatch(receiveDecks(Object.values(decks)))
       })
+      .catch((error) => console.log(error))
   }
 } 
