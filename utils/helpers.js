@@ -41,7 +41,7 @@ function createNotification () {
             .then(({ status }) => {
               if (status === 'granted') {
                 Notifications.cancelAllScheduledNotificationsAsync()
-                
+
                 let tomorrow = new Date()
                 tomorrow.setDate(tomorrow.getDate() + 1)
                 tomorrow.setHours(13)

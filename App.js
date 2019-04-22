@@ -18,7 +18,7 @@ import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import reducer from './reducers'
 import middleware from './middleware'
-import { setLocalNotification } from './utils/helpers'
+import { clearLocalNotification , setLocalNotification } from './utils/helpers'
 
 
 const RouteConfigs = {
@@ -118,7 +118,7 @@ const TabsContainer = createAppContainer(MainNavigator)
 export default class App extends React.Component {
 
   componentDidMount() {
-    setLocalNotification()
+    clearLocalNotification().then(setLocalNotification)
   }
   render() {
     return (
