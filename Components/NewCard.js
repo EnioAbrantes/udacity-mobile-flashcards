@@ -28,7 +28,7 @@ class NewCard extends Component {
     let key = this.props.navigation.state.params.deck.title
 
     let newQuestion = this.props.navigation.state.params.deck.questions.push({
-      questions : question,
+      question : question,
       answer : answer
     })
 

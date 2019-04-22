@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Text, View, TouchableOpacity, StyleSheet } from 'react-native'
-import { purple } from '../utils/colors'
+import { purple, red, green } from '../utils/colors'
 
 class Quiz extends Component {
     state = {
@@ -37,12 +37,14 @@ class Quiz extends Component {
                 :<View>
                     <Text >{`${this.state.currentQuestion+1}/${this.props.navigation.state.params.questions.length}`}</Text>
                     <Text style={{color: purple, fontSize: 25}}>
+                        {console.log("qqq"+ Object.values(this.props.navigation.state.params.questions[this.state.currentQuestion]))}
                         {this.state.showAnswer
                         ?this.props.navigation.state.params.questions[this.state.currentQuestion].answer
                         :this.props.navigation.state.params.questions[this.state.currentQuestion].question}
                     </Text>
                     <TouchableOpacity onPress={() => this.handleShowAnswer()}>
-                        <Text >{this.state.showAnswer
+                        <Text style={styles.showAnswerText} >
+                        {this.state.showAnswer
                         ? 'Question' 
                         : 'Answer'}</Text>
                     </TouchableOpacity>
@@ -91,6 +93,10 @@ const styles = StyleSheet.create({
         padding: 5,
         marginTop : 40,
     },
+    showAnswerText : {
+        color : red,
+        fontSize : 10,
+    }
   })
 
 export default Quiz
