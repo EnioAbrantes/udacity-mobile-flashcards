@@ -18,3 +18,7 @@ npm install .
 and then run: 
 
 yarn start
+
+# Platform
+
+I've tests this application on IOS devices, specially Iphone 8.
