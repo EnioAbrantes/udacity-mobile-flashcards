@@ -1,15 +1,18 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, TextInput, TouchableOpacity} from 'react-native'
-import { purple } from '../utils/colors'
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, KeyboardAvoidingView} from 'react-native'
+import { purple, white, red, green, black } from '../utils/colors'
 import { submitCardEntry } from '../utils/api'
 import { addCard } from '../actions/index'
 import { connect } from 'react-redux'
+import SwitchSelector from "react-native-switch-selector";
+import { MaterialIcons } from "@expo/vector-icons";
+
 
 class NewCard extends Component {
 
   state = {
     question : '',
-    answer : ''
+    answer : 'no'
   }
 
   handleQuestion = (question) => {
@@ -39,30 +42,40 @@ class NewCard extends Component {
       questions : newQuestion,
     }}))
 
-    return () => this.props.navigation.navigate(
+    this.props.navigation.navigate(
       'DeckDetails',
-      {deck : this.props.navigation.state.params.deck}
+      { deck: this.props.navigation.state.params.deck }
     )
 
 }
 
   render(){
     return (
-      <View style={styles.container}> 
+      <KeyboardAvoidingView behavior='padding' style={styles.container}> 
               <TextInput
-                  style={styles.deckName}
-                  placeholder={this.props.navigation.state.params.deck.title}
+                  style={styles.cardQuestion}
+                  placeholder={'Type your question'}
                   onChangeText={(question) => this.handleQuestion(question)}
               />
-              <TextInput
-                  style={styles.deckName}
-                  placeholder="Deck Title"
-                  onChangeText={(answer) => this.handleAnswer(answer)}
+              <SwitchSelector
+                  style={styles.switch}
+                  initial={0}
+                  onPress={value => this.setState({ answer: value })}
+                  textColor={purple} //'#7a44cf'
+                  selectedColor={white}
+                  buttonColor={this.state.answer === 'yes' ? green : red}
+                  borderColor={purple} 
+                  hasPadding
+                  options={[
+                    { label: "no", value: "no" },
+                    { label: "yes", value: "yes" } 
+                  ]}
               />
-              <TouchableOpacity style={styles.submitBTN} onPress={() => this.handleAddCard()}>
-                  <Text >Submit</Text>
+
+              <TouchableOpacity style={styles.addCardBtn} onPress={() => this.handleAddCard()} >
+                  <Text style={styles.addCardText}>Add Card</Text>
               </TouchableOpacity>
-          </View>
+          </KeyboardAvoidingView>
     )
   }
 }
@@ -79,24 +92,30 @@ const styles = StyleSheet.create({
       fontSize : 45,
       textAlign : 'center'
   },
-  submitBTN : {
-      backgroundColor: 'red',
-      flexDirection : 'row',
-      height: 35,
-      borderWidth: 1,
-      borderRadius: 3,
-      padding: 5,
-      paddingLeft: 25,
-      paddingRight: 25,
-      marginTop : 40,
-  },
-  deckName : {
+  cardQuestion : {
       width : 300,
       height: 40,
-      borderWidth: 1,
+      borderWidth: 2,
       borderRadius: 3,
       padding: 5,
       marginTop : 40,
+  },
+  switch : {
+    width : 300,
+    marginTop: 20,
+  },
+  addCardBtn: {
+    backgroundColor: black,
+    padding: 10,
+    borderRadius: 7,
+    height: 50,
+    marginTop: 50,
+    width : 150,
+  },
+  addCardText: {
+    color : white,
+    textAlign: 'center',
+    fontSize: 22,
   },
 })
 
