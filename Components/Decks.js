@@ -3,56 +3,27 @@ import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-nati
 import { handleInitialDecks } from '../actions/shared'
 import DeckDetails from './DeckDetails'
 import { connect } from 'react-redux'
+import { AppLoading} from 'expo'
 
 class Decks extends React.Component {
 
     state = {
-        decks : []
+        decks : [],
+        ready : false
     }
 
   componentDidMount () {
-    console.log('before')
-    /* getDecksResults().then((data) => this.setState({ decks : Object.values(data)}))
-    getDecksResults().then((data) => console.log(Object.values(data)))
-    
-    if(this.state.decks){
-        
-    }
-    console.log('decks' + this.state.decks) */
-
     this.props.dispatch(handleInitialDecks())
-    //console.log()
-
-    /* {Object.keys(metaInfo).map((key) => {
-        const { getIcon, type, ...rest } = metaInfo[key]
-        const value = this.state[key]
-
-        return (
-          <View key={key} style={styles.row}>
-            {getIcon()}
-            {type === 'slider'
-              ? <UdaciSlider
-                  value={value}
-                  onChange={(value) => this.slide(key, value)}
-                  {...rest}
-                />
-              : <UdaciSteppers
-                  value={value}
-                  onIncrement={() => this.increment(key)}
-                  onDecrement={() => this.decrement(key)}
-                  {...rest}
-                />}
-          </View>
-        )
-      })} */
-
-  }
-
-  handleDeck = () =>{
-
+    .then(() => this.setState(() => ({ready: true})))
   }
 
   render() {
+    const { ready } = this.state
+
+    if (ready === false) {
+        return <AppLoading />
+    }
+    
     return (
       <ScrollView  style={styles.container}>
         <View style={{marginTop : 40}}/>
