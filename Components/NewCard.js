@@ -32,11 +32,6 @@ class NewCard extends Component {
       answer : answer
     })
 
-    console.log('newcard' + submitCardEntry(key, {
-      question : question,
-      answer : answer
-    }))
-
     this.props.dispatch(addCard({[key] : {
       title : key,
       questions : newQuestion,
@@ -61,7 +56,7 @@ class NewCard extends Component {
                   style={styles.switch}
                   initial={0}
                   onPress={value => this.setState({ answer: value })}
-                  textColor={purple} //'#7a44cf'
+                  textColor={purple}
                   selectedColor={white}
                   buttonColor={this.state.answer === 'yes' ? green : red}
                   borderColor={purple} 
