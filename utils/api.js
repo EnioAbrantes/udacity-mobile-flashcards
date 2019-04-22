@@ -1,5 +1,4 @@
 import { AsyncStorage } from 'react-native'
-import { formatDecksInfo } from './helpers'
 
 export const DECKS_LIST_KEY = 'FlashCards:decks'
 

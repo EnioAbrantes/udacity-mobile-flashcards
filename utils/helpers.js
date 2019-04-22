@@ -11,16 +11,9 @@ export function timeToString (time = Date.now()) {
     return todayUTC.toISOString().split('T')[0]
   }
 
-
-export function formatDecksInfo(results) {
-    console.log(results)
-    result = {}
-    return 'bla'
-}
-
 export function clearLocalNotification () {
     return AsyncStorage.removeItem(NOTIFICATION_KEY)
-      .then(Notifications.cancelAllScheduledNotificationAsync)
+      .then(Notifications.cancelAllScheduledNotificationsAsync)
   }
 
 function createNotification () {
@@ -47,7 +40,7 @@ function createNotification () {
           Permissions.askAsync(Permissions.NOTIFICATIONS)
             .then(({ status }) => {
               if (status === 'granted') {
-                Notifications.cancelAllScheduledNotificationAsync()
+                Notifications.cancelAllScheduledNotificationsAsync()
                 
                 let tomorrow = new Date()
                 tomorrow.setDate(tomorrow.getDate() + 1)
