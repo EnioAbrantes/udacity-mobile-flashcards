@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Text, View, TouchableOpacity, StyleSheet } from 'react-native'
 import { gray, red, green, white, black } from '../utils/colors'
+import { Ionicons, Entypo } from '@expo/vector-icons'
 
 class Quiz extends Component {
     state = {
@@ -10,8 +11,8 @@ class Quiz extends Component {
     }
 
     handleQuestion = (answer) => {
-        if((answer && this.props.navigation.state.params.questions[this.state.currentQuestion].answer === 'yes') 
-            || (!answer && this.props.navigation.state.params.questions[this.state.currentQuestion].answer === 'no')){
+        if((answer && this.props.navigation.state.params.deck.questions[this.state.currentQuestion].answer === 'yes') 
+            || (!answer && this.props.navigation.state.params.deck.questions[this.state.currentQuestion].answer === 'no')){
                 this.setState({grade : this.state.grade+1})
         }
         this.setState({currentQuestion : this.state.currentQuestion+1})
@@ -22,7 +23,7 @@ class Quiz extends Component {
     ) 
 
     quizPercentage = () => {
-        let percentage = ((this.state.grade/this.props.navigation.state.params.questions.length)*100).toFixed(2)
+        let percentage = ((this.state.grade/this.props.navigation.state.params.deck.questions.length)*100).toFixed(2)
 
         if (percentage < 40){
             return `Your percentage was ${percentage}%, practice more and you'll be an expert!`
@@ -35,23 +36,44 @@ class Quiz extends Component {
         }
     }
 
+    handleBackButton = () => (
+        this.props.navigation.navigate(
+            'DeckDetails',
+            { deck: this.props.navigation.state.params.deck }
+          )
+    )
+
+    handleRefreshButton = () => (
+        this.setState({
+            currentQuestion : 0,
+            grade : 0,
+        })
+    )
+
+
     render(){
-        let { questions } = this.props.navigation.state.params
+        let { deck } = this.props.navigation.state.params
         return (
             <View>
-                {this.props.navigation.state.params.questions.length <= this.state.currentQuestion
+                {deck.questions.length <= this.state.currentQuestion
                 
-                ? <Text style={styles.quizResult}>
-                    {this.quizPercentage()}
-                </Text>
+                ? <View>
+                    <Text style={styles.quizResult}>
+                        {this.quizPercentage()}
+                    </Text>
+                    <View style={styles.showIcons}>
+                        <Entypo name='back' size={50} onPress={() => this.handleBackButton()}/>
+                        <Ionicons name='md-refresh' size={50} onPress={() => this.handleRefreshButton()}/>
+                    </View>
+                  </View>
                 
                 :<View>
-                    <Text style={styles.indexText}>{`${this.state.currentQuestion+1}/${this.props.navigation.state.params.questions.length}`}</Text>
+                    <Text style={styles.indexText}>{`${this.state.currentQuestion+1}/${deck.questions.length}`}</Text>
                     <View style={styles.container}>
                         <Text style={styles.question}>
                             {this.state.showAnswer
-                            ?this.props.navigation.state.params.questions[this.state.currentQuestion].answer
-                            :this.props.navigation.state.params.questions[this.state.currentQuestion].question}
+                            ?deck.questions[this.state.currentQuestion].answer
+                            :deck.questions[this.state.currentQuestion].question}
                         </Text>
                         <TouchableOpacity onPress={() => this.handleShowAnswer()}>
                             <Text style={styles.showAnswerText} >
@@ -128,6 +150,11 @@ const styles = StyleSheet.create({
         textAlign : 'center',
         color : black,
         marginTop : 60,
+    },
+    showIcons : {
+        marginTop : 20,
+        flexDirection: 'row',
+        justifyContent: 'space-around',
     },
   })
 

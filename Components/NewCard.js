@@ -5,7 +5,6 @@ import { submitCardEntry } from '../utils/api'
 import { addCard } from '../actions/index'
 import { connect } from 'react-redux'
 import SwitchSelector from "react-native-switch-selector";
-import { MaterialIcons } from "@expo/vector-icons";
 
 
 class NewCard extends Component {
